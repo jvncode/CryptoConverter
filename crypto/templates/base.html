@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/entireframework.min.css">
+    <link rel="stylesheet" href="/static/css/picnic.min.css">
+    <link rel="stylesheet" href="/static/css/picnic.css">
+    <link rel="stylesheet" href="/static/css/bijou.min.css">
+</head>
+<body>
+    <header>
+        <a href="/" class="tabs three" id='tab-1'>Inicio</a> | <a href="/purchase" class="tabs three" id='tab-2'>Compra</a> | <a href="/status" class="tabs three" id='tab-3'>Status</a>
+    </header>
+    <section class="container">
+        {% block content %}{% endblock %}
+    </section>
+    <br>
+    <br>
+    <br>
+    <footer>&copy 2020 - Todos los derechos reservados</footer>
+</body>
+</html>
