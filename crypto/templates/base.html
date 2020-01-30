@@ -4,21 +4,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="/static/css/entireframework.min.css">
     <link rel="stylesheet" href="/static/css/picnic.min.css">
     <link rel="stylesheet" href="/static/css/picnic.css">
-    <link rel="stylesheet" href="/static/css/bijou.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+
 </head>
-<body>
+<body style="background-color:rgba(197, 197, 200, 0.835);">
     <header>
-        <a href="/" class="tabs three" id='tab-1'>Inicio</a> | <a href="/purchase" class="tabs three" id='tab-2'>Compra</a> | <a href="/status" class="tabs three" id='tab-3'>Status</a>
+        <p>Crypto Converter</p>
+        <hr width="100%" size="10" style="color: hsl(0, 0%, 0%);"/>
     </header>
+    <a href="/" class="pseudo button">Inicio</a> | <a href="/purchase" class="pseudo button">Compra</a> | <a href="/status" class="pseudo button">Status</a>
     <section class="container">
         {% block content %}{% endblock %}
     </section>
-    <br>
-    <br>
-    <br>
-    <footer>&copy 2020 - Todos los derechos reservados</footer>
+    <footer>
+        <hr width="560%" size="10" style="color: hsl(0, 0%, 0%);"/>
+        &copy 2020 - Todos los derechos reservados
+    </footer>
 </body>
 </html>

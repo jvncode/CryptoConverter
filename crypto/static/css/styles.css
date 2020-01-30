@@ -1,0 +1,149 @@
+
+
+  header {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#981ce0);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+}
+
+  footer {
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    background-color: rgb(#fdfdfd);
+    font-weight: normal;
+    font-size: 0.8em;
+    padding: 10px;
+
+}
+
+.myCoolButton1 {
+    background: #524e4ef3;
+    width: 3cm;
+    position: relative;
+    left: 246px;
+    bottom:-50px
+
+}
+
+.myCoolButton2 {
+    background: #524e4ef3;
+    width: 3cm;
+    position: relative;
+    left: 960px;
+    bottom:-50px
+
+}
+
+.title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.8em; color: rgb(0, 0, 0);
+    padding: 10px;
+
+}
+
+.selector1 {
+
+    background-color: rgb(174, 170, 238) ;
+    width: 3cm;
+    position: relative;
+    left: 480px;
+    bottom:80px;
+}
+
+.selector2 {
+
+    background-color: rgb(174, 170, 238) ;
+    width: 3cm;
+    position: relative;
+    left: 860px;
+    bottom:215px;
+}
+
+.to_purchase {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 800px;
+    bottom:145px;
+
+}
+
+.from_purchase {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 390px;
+    bottom:15px;
+
+}
+
+.q_input {
+
+    background-color: rgb(174, 170, 238) ;
+    position: relative;
+    left: 325px;
+    bottom:120px;
+
+}
+
+
+.q {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 810px;
+    bottom:195px;
+}
+
+.p_u {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 780px;
+    bottom:180px;
+}
+
+.calc_q {
+
+    background: #524e4ef3;
+    position: relative;
+    left: 340px;
+    bottom:120px;
+}
+
+.btn_purchase {
+
+    background: #981ce0;
+    position: relative;
+    left: 950px;
+    bottom:140px;
+}
+
+.btn_clear_purchase {
+
+    background: #524e4ef3;
+    position: relative;
+    left: 750px;
+    bottom:140px;
+}
