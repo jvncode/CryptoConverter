@@ -8,50 +8,25 @@
     <hr width="50%" size="20" style="color: hsl(0, 0%, 0%);"/>
     <p class="from_purchase">From:</p>
 
-<select style="width:150px" class="selector1">
-    <option>Elija Cripto</option>
-    <option>EUR</option>
-    <option>BTC</option>
-    <option>ETH</option>
-    <option>XRP</option>
-    <option>LTC</option>
-    <option>BCH</option>
-    <option>BNB</option>
-    <option>USDT</option>
-    <option>EOS</option>
-    <option>BSV</option>
-    <option>XLM</option>
-    <option>ADA</option>
-    <option>TRX</option>
-</select>
+    <form action="/purchase" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.slct_from(class="selector1", style="width:200px") }}
 
-<p class="to_purchase">To:</p>
+        <p class="to_purchase">To:</p>
+        {{ form.slct_to(class="selector2", style="width:200px") }}
 
-<select style="width:150px" class="selector2">
-    <option>Elija Cripto</option>
-    <option>EUR</option>
-    <option>BTC</option>
-    <option>ETH</option>
-    <option>XRP</option>
-    <option>LTC</option>
-    <option>BCH</option>
-    <option>BNB</option>
-    <option>USDT</option>
-    <option>EOS</option>
-    <option>BSV</option>
-    <option>XLM</option>
-    <option>ADA</option>
-    <option>TRX</option>
-</select>
-<input class="q_input" style="width:150px" placeholder="Cantidad" />
+        {{ form.inputCantidad(class="q_input", style="width:150px", placeholder="Cantidad") }}
+ 
+        {{ form.submitCalcular(class="calc_q")}}
 
+        <p class="q">Q:</p> <p class="q_result">{{result}}</p>
+        <p class="quant">{{ "{:,.2f}".format(data[0]) }} {{ data[2] }} </p>
+        <p class="p_u">P.U.:</p>
+        <p class="p_u_cant">{{"{:,.2f}".format(data[1]) }} {{ data[2] }}</p>
+        {{ form.submitCompra(class="btn_purchase")}}
 
-<input class="calc_q" value="Calcular" type="submit">
-<p class="q">Q:</p>
-<p class="p_u">P.U.:</p>
-<input class="btn_purchase" value="Aceptar" type="submit">
-<input class="btn_clear_purchase" value="Borrar" type="submit">
-
-
-
+        <a href="/purchase " class="btn_clear_purchase">Borrar</a>
+        <a href="/" class="inicio_purchase">Inicio</a>
+    </form>
+       
 {% endblock %}

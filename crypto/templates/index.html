@@ -18,27 +18,17 @@
     </thead>
     <tbody>
     <tr>
-        <td>Francisco</td>
-        <td>Valencia, Spain</td>
-        <td>Francisco</td>
-        <td>Valencia, Spain</td>
-        <td>Francisco</td>
-        <td>Valencia, Spain</td>
-        <td>Francisco</td>
-    </tr>
-    <tr>
-        <td>Francisco</td>
-        <td>Valencia, Spain</td>
-        <td>Francisco</td>
-        <td>Valencia, Spain</td>
-        <td>Francisco</td>
-        <td>Valencia, Spain</td>
-        <td>Francisco</td>
+        <td></td>
+        <td></td>
+        <td>{{ data[3] }}</td>
+        <td>{{ "{:,.2f}".format(data[0]) }}</td>
+        <td>{{ data[4] }}</td>
+        <td>{{ "{:,.2f}".format(data[2]) }}</td>
+        <td>{{ "{:,.2f}".format(data[1]) }}</td>
     </tr>
     </tbody>
 </table>
-<button class="myCoolButton1">Status</button>
-<button class="myCoolButton2">+</button>
-
+<a href="/status" class="myCoolButton1">Status</a>
+<a href="/purchase" class="myCoolButton2">Compra </a>
 
 {% endblock %}

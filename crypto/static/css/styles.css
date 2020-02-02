@@ -20,19 +20,26 @@
 }
 
 .myCoolButton1 {
-    background: #524e4ef3;
-    width: 3cm;
+    
+    background-color: #524e4ef3;
+    color: whitesmoke;
+    width: 320px;
+    padding: 10px;
+    border: 5px;
     position: relative;
-    left: 246px;
+    left: 260px;
     bottom:-50px
 
 }
 
 .myCoolButton2 {
-    background: #524e4ef3;
-    width: 3cm;
+    background-color: #524e4ef3;
+    color: whitesmoke;
+    width: 320px;
+    padding: 10px;
+    border: 5px;
     position: relative;
-    left: 960px;
+    left: 950px;
     bottom:-50px
 
 }
@@ -60,7 +67,7 @@
     background-color: rgb(174, 170, 238) ;
     width: 3cm;
     position: relative;
-    left: 860px;
+    left: 800px;
     bottom:215px;
 }
 
@@ -72,7 +79,7 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 800px;
+    left: 740px;
     bottom:145px;
 
 }
@@ -94,7 +101,7 @@
 
     background-color: rgb(174, 170, 238) ;
     position: relative;
-    left: 325px;
+    left: 275px;
     bottom:120px;
 
 }
@@ -108,8 +115,34 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 810px;
+    left: 800px;
     bottom:195px;
+}
+
+.quant {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: normal;
+    font-size: 1.1em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 880px;
+    bottom:306px;
+
+
+}
+.q_result {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 850px;
+    bottom:195px;
+
+
 }
 
 .p_u {
@@ -120,21 +153,35 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 780px;
-    bottom:180px;
+    left: 800px;
+    bottom:300px;
 }
 
+.p_u_cant {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: normal;
+    font-size: 1.1em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 880px;
+    bottom:370px;
+
+
+}
 .calc_q {
 
     background: #524e4ef3;
     position: relative;
-    left: 340px;
+    left: 280px;
     bottom:120px;
 }
 
 .btn_purchase {
 
     background: #981ce0;
+    width: 100px;
     position: relative;
     left: 950px;
     bottom:140px;
@@ -142,8 +189,25 @@
 
 .btn_clear_purchase {
 
-    background: #524e4ef3;
+    background-color: #524e4ef3;
+    color: whitesmoke;
+    width: 320px;
+    padding: 10px;
+    border: 5px;
     position: relative;
     left: 750px;
     bottom:140px;
+}
+
+.inicio_purchase {
+
+    background-color: #524e4ef3;
+    color: whitesmoke;
+    width: 320px;
+    padding: 10px;
+    border: 5px;
+    position: relative;
+    left: 200px;
+    bottom: 140px
+
 }
