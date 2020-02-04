@@ -20,9 +20,9 @@
         {{ form.submitCalcular(class="calc_q")}}
 
         <p class="q">Q:</p> <p class="q_result">{{result}}</p>
-        <p class="quant">{{ "{:,.2f}".format(data[0]) }} {{ data[2] }} </p>
+        <p class="quant">{{ "{:.2f}".format(data[0]) }} {{ data[2] }} </p>
         <p class="p_u">P.U.:</p>
-        <p class="p_u_cant">{{"{:,.2f}".format(data[1]) }} {{ data[2] }}</p>
+        <p class="p_u_cant">{{"{:.2f}".format(data[1]) }} {{ data[2] }}</p>
         {{ form.submitCompra(class="btn_purchase")}}
 
         <a href="/purchase " class="btn_clear_purchase">Borrar</a>

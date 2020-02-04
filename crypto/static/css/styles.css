@@ -53,6 +53,23 @@
 
 }
 
+.title_sin {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.3em; color: rgb(0, 0, 0);
+    padding: 10px;
+
+}
+.movements {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.0em; color: rgb(0, 0, 0);
+    padding: 10px;
+}
 .selector1 {
 
     background-color: rgb(174, 170, 238) ;
@@ -183,8 +200,8 @@
     background: #981ce0;
     width: 100px;
     position: relative;
-    left: 950px;
-    bottom:140px;
+    left: 900px;
+    bottom:320px;
 }
 
 .btn_clear_purchase {
@@ -195,8 +212,8 @@
     padding: 10px;
     border: 5px;
     position: relative;
-    left: 750px;
-    bottom:140px;
+    left: 700px;
+    bottom:320px;
 }
 
 .inicio_purchase {
@@ -207,7 +224,45 @@
     padding: 10px;
     border: 5px;
     position: relative;
-    left: 200px;
-    bottom: 140px
+    left: 300px;
+    bottom: 320px
 
+}
+
+.total_invertido {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 450px;
+    bottom:-30px;
+
+}
+
+.total_invertido_display {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 550px;
+    bottom:-30px;
+
+}
+
+.valor_actual {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 450px;
+    bottom:-30px;
 }

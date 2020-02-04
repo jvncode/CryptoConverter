@@ -4,31 +4,38 @@
 
 {% block content %}
     <h1 align="center" class="title">MOVIMIENTOS</h1>
-<table class="primary" align="center">
-    <thead>
-    <tr>
-        <th>Fecha</th>
-        <th>Hora</th>
-        <th>From</th>
-        <th>Q</th>
-        <th>To</th>
-        <th>Q</th>
-        <th>P. Unidad</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>{{ data[3] }}</td>
-        <td>{{ "{:,.2f}".format(data[0]) }}</td>
-        <td>{{ data[4] }}</td>
-        <td>{{ "{:,.2f}".format(data[2]) }}</td>
-        <td>{{ "{:,.2f}".format(data[1]) }}</td>
-    </tr>
-    </tbody>
-</table>
-<a href="/status" class="myCoolButton1">Status</a>
-<a href="/purchase" class="myCoolButton2">Compra </a>
+    <table class="primary" align="center">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>From</th>
+                <th>Q</th>
+                <th>To</th>
+                <th>Q</th>
+                <th>P. Unidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if registros|length == 0 %}
+                <tr>
+                    <td align="center" class="title_sin">---------- SIN MOVIMIENTOS ----------</td>
+                </tr>
+            {% endif %}
+            {% for campo in registros %}
+            <tr class="movements">
+                <td>{{ campo[0]}}</td>
+                <td>{{ campo[1]}}</td>
+                <td>{{ campo[2]}}</td>
+                <td>{{ "{:,.2f}".format(campo[3])}}</td>
+                <td>{{ campo[4] }}</td>
+                <td>{{ "{:,.2f}".format(campo[5])}}</td>
+                <td>{{ pu}} {{campo[2]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <a href="/status" class="myCoolButton1">Status</a>
+        <a href="/purchase" class="myCoolButton2">Compra </a>
 
 {% endblock %}
