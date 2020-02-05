@@ -28,11 +28,6 @@ def dataQuery(consulta):
 
     return movs
 
-def api():
-    return pass
-
-
-
 @app.route("/")
 def index():
 
