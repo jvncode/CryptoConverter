@@ -69,6 +69,7 @@
     font-weight: bold;
     font-size: 1.0em; color: rgb(0, 0, 0);
     padding: 10px;
+
 }
 .selector1 {
 
@@ -255,6 +256,19 @@
 
 }
 
+.inversion {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    text-decoration: underline #981ce0;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 600px;
+    bottom: 22px;
+}
+
 .valor_actual {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -263,6 +277,38 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 450px;
-    bottom:-30px;
+    left: 420px;
+    bottom:80px;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+    border: solid #000 1px ;
+    
+}
+
+.btnVolver {
+
+    background-color: #981ce0;
+    color: whitesmoke;
+    width: 320px;
+    padding: 10px;
+    border: 5px;
+    position: relative;
+    left: 860px;
+    bottom: 0px
+}
+
+
+thead {
+
+    display: block;
+}
+
+tbody {
+    display: block;
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

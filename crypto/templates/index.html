@@ -10,9 +10,9 @@
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>From</th>
-                <th>Q</th>
+                <th>Q. Inver.</th>
                 <th>To</th>
-                <th>Q</th>
+                <th>Q. Unid.</th>
                 <th>P. Unidad</th>
             </tr>
         </thead>
@@ -30,12 +30,11 @@
                 <td>{{ "{:,.2f}".format(campo[3])}}</td>
                 <td>{{ campo[4] }}</td>
                 <td>{{ "{:,.2f}".format(campo[5])}}</td>
-                <td>{{ pu}} {{campo[2]}}</td>
+                <td>{{ "{:,.2f}".format(campo[3]/campo[5]) }}&nbsp;{{ campo[2] }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
         <a href="/status" class="myCoolButton1">Status</a>
         <a href="/purchase" class="myCoolButton2">Compra </a>
-
 {% endblock %}

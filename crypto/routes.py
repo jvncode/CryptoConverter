@@ -4,12 +4,12 @@ from crypto.forms import PurchaseForm
 import datetime
 import sqlite3
 
+
+
 BBDD = './data/CryptoData.db'
 
 cryptos = {"EUR":1, "BTC":3.5, "ETH":4.8, "XRP":3.76, "LTC":6.4, "BCH":1.5, "BNB":76.4, "USDT":2.6, "EOS":4.3, "BSV":1.41, "XLM":2.43, "ADA":3.6, "TRX":6.8}
 dt = datetime.datetime.now()
-
-
 
 def dataQuery(consulta):
 
@@ -28,18 +28,13 @@ def dataQuery(consulta):
 
     return movs
 
+def api():
+    return pass
+
+
 
 @app.route("/")
 def index():
-    '''
-    slctFrom=None
-    slctTo=None
-    units=0
-    quant = 0
-    pu = 0
-    fecha=dt.strftime("%d/%m/%Y")
-    hora=dt.strftime("%H:%M:%S")
-    '''
 
     registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
 
@@ -48,12 +43,14 @@ def index():
 
 @app.route("/purchase", methods=['GET', 'POST'])
 def purchase():
+
     form = PurchaseForm(request.form)
     slctFrom=request.values.get("slct_from")
     slctTo=request.values.get("slct_to")
     units=request.values.get("inputCantidad")
     quant = 0
     pu = 0
+
     
     if slctFrom and slctTo != '':
         quant=(float(units) * float(cryptos[slctTo])) / float(cryptos[slctFrom])
@@ -80,7 +77,6 @@ def purchase():
 
         conex.commit()
         registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
-
         conex.close()
         
         return render_template("index.html", form=form, registros=registros)
@@ -88,4 +84,20 @@ def purchase():
 
 @app.route("/status")
 def inverter():
-    return render_template("status.html")
+
+    InverFrom= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE from_currency LIKE "%EUR%";')
+    InverTo= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%EUR%";')
+
+    for x in InverFrom:
+        totalInverFrom = x
+    
+    if None in InverTo:
+        totalInverTo = 0
+    else:
+        for y in InverTo:
+            totalInverTo = y
+
+    totalInver = totalInverFrom + totalInverTo
+
+
+    return render_template("status.html", totalInver=totalInver)
