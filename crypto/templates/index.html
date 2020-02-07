@@ -4,35 +4,36 @@
 
 {% block content %}
     <h1 align="center" class="title">MOVIMIENTOS</h1>
-    <table class="primary" align="center">
+    <table WIDTH="80%" class="primary" align="center">
         <thead>
             <tr>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>From</th>
-                <th>Q. Inver.</th>
+                <th>Q.Inv</th>
                 <th>To</th>
-                <th>Q. Unid.</th>
-                <th>P. Unidad</th>
+                <th>Q.Unit</th>
+                <th>P.Unit</th>
             </tr>
         </thead>
         <tbody>
-            {% if registros|length == 0 %}
+            {% if not registros %}
                 <tr>
-                    <td align="center" class="title_sin">---------- SIN MOVIMIENTOS ----------</td>
+                    <td class="title_sin"> SIN MOVIMIENTOS </td>
                 </tr>
+            {% else %}
+                {% for campo in registros %}
+                    <tr class="movements">
+                        <td>{{ campo[0]}}</td>
+                        <td>{{ campo[1]}}</td>
+                        <td>{{ campo[2]}}</td>
+                        <td>{{ "{:,.5f}".format(campo[3])}}</td>
+                        <td>{{ campo[4] }}</td>
+                        <td>{{ "{:,.2f}".format(campo[5])}}</td>
+                        <td>{{ "{:,.5f}".format(campo[3]/campo[5]) }}&nbsp;{{ campo[2] }}</td>
+                    </tr>
+                {% endfor %}
             {% endif %}
-            {% for campo in registros %}
-            <tr class="movements">
-                <td>{{ campo[0]}}</td>
-                <td>{{ campo[1]}}</td>
-                <td>{{ campo[2]}}</td>
-                <td>{{ "{:,.2f}".format(campo[3])}}</td>
-                <td>{{ campo[4] }}</td>
-                <td>{{ "{:,.2f}".format(campo[5])}}</td>
-                <td>{{ "{:,.2f}".format(campo[3]/campo[5]) }}&nbsp;{{ campo[2] }}</td>
-            </tr>
-            {% endfor %}
         </tbody>
     </table>
         <a href="/status" class="myCoolButton1">Status</a>
