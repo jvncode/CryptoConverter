@@ -208,6 +208,18 @@
     left: 370px;
     bottom:380px;
 }
+
+.error_db {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 10px;
+    position: relative;
+    left: 370px;
+    bottom:380px;
+}
+
 .btn_purchase {
 
     background: #981ce0;

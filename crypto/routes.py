@@ -29,7 +29,6 @@ def api(cryptoFrom, cryptoTo):
     try:
         response = session.get(url)
         data = json.loads(response.text)
-        print(data)
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print(e)
 
@@ -71,12 +70,6 @@ def purchase():
     quant = 0
     pu = 0
 
-    if slctFrom and slctTo != '':
-        #quant=(float(units) * float(cryptos[slctTo])) * float(cryptos[slctFrom])
-        #pu = float(quant) / float(units)
-        pass
-
-
     if request.method == 'GET':
 
         return render_template("purchase.html", form=form , data=[quant,pu])
@@ -94,13 +87,10 @@ def purchase():
 
         #Calculo de saldo de la moneda con la que se quiere comprar
 
-        saldoStr = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%{}%";'.format(slctTo))
+        saldoStr = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%{}%";'.format(slctFrom))
         saldo = saldoStr[0]
 
         if slctFrom == 'EUR' or saldo != None:
-
-            fecha=dt.strftime("%d/%m/%Y")
-            hora=dt.strftime("%H:%M:%S")
 
             conex = sqlite3.connect(BBDD)
             cursor = conex.cursor()
@@ -108,8 +98,16 @@ def purchase():
 
             dataQuant = api(slctFrom, slctTo)
             quant = float(dataQuant)*float(units)
+            fecha=dt.strftime("%d/%m/%Y")
+            hora=dt.strftime("%H:%M:%S")
 
-            cursor.execute(mov, (fecha, hora, slctFrom, float(quant), slctTo, float(units)))
+            try:
+                cursor.execute(mov, (fecha, hora, slctFrom, float(quant), slctTo, float(units)))
+            except sqlite3.Error:
+                quant = 0
+                pu = 0
+                errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+                return render_template("purchase.html", form=form , errorDB=errorDB, data=[quant,pu])
 
             conex.commit()
             registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
@@ -122,7 +120,6 @@ def purchase():
             quant = 0
             pu = 0
             alert = "NO EXISTE SALDO DE COMPRA EN LA CRYPTOMONEDA {}".format(slctFrom)
-            print(alert)
             return render_template("purchase.html", form=form, data=[quant, pu, slctFrom], alert=alert)
 
 

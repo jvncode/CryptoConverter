@@ -26,6 +26,10 @@
         {% if alert %}
         <p class="alerta_saldo">{{ alert }}</p>
         {% endif %}
+        {% if errorDB %}
+        <p class="error_db">{{ errorDB }}</p>
+        {% endif %}
+
         {{ form.submitCompra(class="btn_purchase")}}
 
         <a href="/purchase " class="btn_clear_purchase">Borrar</a>
