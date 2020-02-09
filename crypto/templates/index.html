@@ -27,10 +27,18 @@
                         <td>{{ campo[0]}}</td>
                         <td>{{ campo[1]}}</td>
                         <td>{{ campo[2]}}</td>
+                        {% if campo[3] >= 1 %}
+                        <td>{{ "{:,.2f}".format(campo[3])}}</td>
+                        {% else %}
                         <td>{{ "{:,.5f}".format(campo[3])}}</td>
+                        {% endif %}
                         <td>{{ campo[4] }}</td>
                         <td>{{ "{:,.2f}".format(campo[5])}}</td>
+                        {% if campo[3]/campo[5] >= 1 %}
+                        <td>{{ "{:,.2f}".format(campo[3]/campo[5]) }}&nbsp;{{ campo[2] }}</td>
+                        {% else %}
                         <td>{{ "{:,.5f}".format(campo[3]/campo[5]) }}&nbsp;{{ campo[2] }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             {% endif %}

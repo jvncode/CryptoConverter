@@ -20,9 +20,17 @@
         {{ form.submitCalcular(class="calc_q")}}
 
         <p class="q">Q:</p> <p class="q_result">{{result}}</p>
-        <p class="quant">{{ "{:.2f}".format(data[0]) }} {{ data[2] }} </p>
+        {% if data[0] >= 1 %}
+        <p class="quant">{{ "{:,.2f}".format(data[0]) }} {{ data[2] }} </p>
+        {% else %}
+        <p class="quant">{{ "{:,.5f}".format(data[0]) }} {{ data[2] }} </p>
+        {% endif %}
         <p class="p_u">P.U.:</p>
-        <p class="p_u_cant">{{"{:.2f}".format(data[1]) }} {{ data[2] }}</p>
+        {% if data[1] >= 1 %}
+        <p class="p_u_cant">{{"{:,.2f}".format(data[1]) }} {{ data[2] }}</p>
+        {% else %}
+        <p class="p_u_cant">{{"{:,.5f}".format(data[1]) }} {{ data[2] }}</p>
+        {% endif %}
         {% if alert %}
         <p class="alerta_saldo">{{ alert }}</p>
         {% endif %}
