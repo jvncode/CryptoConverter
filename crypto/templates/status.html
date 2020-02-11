@@ -85,7 +85,7 @@
                 {% else %}
                 <tr class="movements">
                     {% for coins in cryptoBalance %}
-                        <td>{{ coins }}</td>
+                        <td>{{ "{:,.2f}".format(coins) }}</td>
                     {% endfor %}
                 {% endif %}
             </tbody>

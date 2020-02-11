@@ -52,6 +52,198 @@ def dataQuery(consulta):
 
     return movs
 
+def cryptoSaldo():
+
+    balanceBTC = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "BTC"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "BTC"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+
+    balanceETH = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "ETH"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "ETH"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceXRP = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "XRP"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "XRP"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceLTC = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "LTC"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "LTC"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceBCH = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "BCH"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "BCH"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceBNB = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "BNB"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "BNB"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceUSDT = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "USDT"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "USDT"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceEOS = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "EOS"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "EOS"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceBSV = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "BSV"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "BSV"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceXLM = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "XLM"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "XLM"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceADA = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "ADA"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "ADA"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+    balanceTRX = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "TRX"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "TRX"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE
+                            ''')
+
+    cryptoBalance = [balanceBTC[0], balanceETH[0], balanceXRP[0], balanceLTC[0], balanceBCH[0], balanceBNB[0], balanceUSDT[0], balanceEOS[0], balanceBSV[0], balanceXLM[0], balanceADA[0], balanceTRX[0]]
+
+    for x in range(len(cryptoBalance)):
+        if cryptoBalance[x] == None:
+            cryptoBalance[x]=0
+
+    return cryptoBalance
+
 @app.route("/")
 def index():
 
@@ -77,6 +269,14 @@ def purchase():
 
     if request.values.get("submitCalcular"):
 
+        # Validacion de monedas distintas en calculo
+
+        if slctFrom == slctTo:
+            quant = 0
+            pu = 0
+            cryptoError = "OPERACIÓN INCORRECTA - DEBE ELEGIR DOS MONEDAS DISTINTAS"
+            return render_template("purchase.html", form=form , cryptoError=cryptoError, data=[quant,pu])
+
         dataQuant = api(slctFrom, slctTo)
         quant = float(dataQuant)*float(units)
         pu = dataQuant
@@ -85,37 +285,53 @@ def purchase():
 
     if request.values.get("submitCompra"):
 
+        # Validacion de monedas distintas en compra
+
+        if slctFrom == slctTo:
+            quant = 0
+            pu = 0
+            cryptoError = "OPERACIÓN INCORRECTA - DEBE ELEGIR DOS MONEDAS DISTINTAS"
+            return render_template("purchase.html", form=form , cryptoError=cryptoError, data=[quant,pu])
+
         #Calculo de saldo de la moneda con la que se quiere comprar
 
         saldoStr = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%{}%";'.format(slctFrom))
         saldo = saldoStr[0]
+        if saldo == None:
+            saldo=0
 
         if slctFrom == 'EUR' or saldo != None:
 
-            conex = sqlite3.connect(BBDD)
-            cursor = conex.cursor()
-            mov = "INSERT INTO MOVEMENTS(date, time, from_currency, from_quantity, to_currency, to_quantity) VALUES(?, ?, ?, ?, ?, ?);"
-
-            dataQuant = api(slctFrom, slctTo)
-            quant = float(dataQuant)*float(units)
             fecha=dt.strftime("%d/%m/%Y")
             hora=dt.strftime("%H:%M:%S")
+            dataQuant = api(slctFrom, slctTo)
+            quant = float(dataQuant)*float(units)
 
-            try:
-                cursor.execute(mov, (fecha, hora, slctFrom, float(quant), slctTo, float(units)))
-            except sqlite3.Error:
-                quant = 0
-                pu = 0
-                errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
-                return render_template("purchase.html", form=form , errorDB=errorDB, data=[quant,pu])
+            # Comprobación de existemcia de saldo con la crypto con la que se quiere comprar
 
-            conex.commit()
-            registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
-            conex.close()
+            if float(dataQuant)*saldo <= quant or slctFrom == 'EUR':
 
-            # (OJO!) Falta restar unidades de crytos que se gastan (excepto EUR)
+                conex = sqlite3.connect(BBDD)
+                cursor = conex.cursor()
+                mov = "INSERT INTO MOVEMENTS(date, time, from_currency, from_quantity, to_currency, to_quantity) VALUES(?, ?, ?, ?, ?, ?);"
 
-            return render_template("index.html", form=form, registros=registros)
+                try:
+                    cursor.execute(mov, (fecha, hora, slctFrom, float(quant), slctTo, float(units)))
+                except sqlite3.Error:
+                    quant = 0
+                    pu = 0
+                    errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+                    return render_template("purchase.html", form=form , errorDB=errorDB, data=[quant,pu])
+
+                conex.commit()
+                registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
+                conex.close()
+
+                return render_template("index.html", form=form, registros=registros)
+            else:
+                pu = dataQuant
+                sinSaldo = "NO TIENE SALDO SUFICIENTE EN {} PARA REALIZAR ESTA OPERACIÓN".format(slctFrom)
+                return render_template("purchase.html", form=form , sinSaldo=sinSaldo, data=[quant,pu])
         else:
             quant = 0
             pu = 0
@@ -149,33 +365,15 @@ def inverter():
 
     # Calculo saldo de Cryptomonedas
 
-    balanceBTC = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%BTC%";')
-    balanceETH = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%ETH%";')
-    balanceXRP = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%XRP%";')
-    balanceLTC = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%LTC%";')
-    balanceBCH = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%BCH%";')
-    balanceBNB = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%BNB%";')
-    balanceUSDT = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%USDT%";')
-    balanceEOS = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%EOS%";')
-    balanceBSV = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%BSV%";')
-    balanceXLM = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%XLM%";')
-    balanceADA = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%ADA%";')
-    balanceTRX = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%TRX%";')
-
-    cryptoBalance = [balanceBTC[0], balanceETH[0],balanceXRP[0], balanceLTC[0],balanceBCH[0], balanceBNB[0], balanceUSDT[0],balanceEOS[0], balanceBSV[0], balanceXLM[0], balanceADA[0], balanceTRX[0]]
-
-    # Cambia None por 0 para listado de saldo de Cryptos
-    for x in range(len(cryptoBalance)):
-        if cryptoBalance[x] == None:
-            cryptoBalance[x]=0
+    cryptoSaldo()
 
     # Calculo Valor Actual de todas las cryptomonedas en Euros y totalizarlas en Status
     xi = 0
     cryptoValorActual = {}
     valorAct = 0
     for coin in cryptos:
-        cryptoValorActual[coin] = api('EUR',coin) * cryptoBalance[xi]
+        cryptoValorActual[coin] = api('EUR',coin) * cryptoSaldo()[xi]
         valorAct += cryptoValorActual[coin]
         xi += 1
 
-    return render_template("status.html", totalInver=totalInver, cryptoBalance=cryptoBalance, valorAct=valorAct)
+    return render_template("status.html", totalInver=totalInver, cryptoBalance=cryptoSaldo(), valorAct=valorAct)

@@ -198,6 +198,17 @@
     bottom:120px;
 }
 
+.crypto_error {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 10px;
+    position: relative;
+    left: 300px;
+    bottom:380px;
+}
+
 .alerta_saldo {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -219,6 +230,18 @@
     left: 370px;
     bottom:380px;
 }
+
+.sin_saldo {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 10px;
+    position: relative;
+    left: 300px;
+    bottom:380px;
+}
+
 
 .btn_purchase {
 
