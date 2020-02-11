@@ -34,6 +34,9 @@
         {% if cryptoError %}
             <p class="crypto_error">{{ cryptoError }}</p>
         {% endif %}
+        {% if cryptoIncompatible %}
+            <p class="crypto_incompatible">{{ cryptoIncompatible }} <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "/Use BTC para comprar Euros o resto de crytomonedas/" }}</p>
+        {% endif %}
         {% if alert %}
             <p class="alerta_saldo">{{ alert }}</p>
         {% endif %}

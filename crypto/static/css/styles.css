@@ -209,6 +209,17 @@
     bottom:380px;
 }
 
+.crypto_incompatible {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 10px;
+    position: relative;
+    left: 300px;
+    bottom:380px;
+}
+
 .alerta_saldo {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -249,7 +260,7 @@
     width: 100px;
     position: relative;
     left: 900px;
-    bottom:320px;
+    bottom:370px;
 }
 
 .btn_clear_purchase {
@@ -261,7 +272,7 @@
     border: 5px;
     position: relative;
     left: 700px;
-    bottom:320px;
+    bottom:370px;
 }
 
 .inicio_purchase {
@@ -273,7 +284,7 @@
     border: 5px;
     position: relative;
     left: 300px;
-    bottom: 320px
+    bottom: 370px
 
 }
 

@@ -269,13 +269,28 @@ def purchase():
 
     if request.values.get("submitCalcular"):
 
-        # Validacion de monedas distintas en calculo
+        # Validacion de monedas distintas
 
         if slctFrom == slctTo:
             quant = 0
             pu = 0
             cryptoError = "OPERACIÓN INCORRECTA - DEBE ELEGIR DOS MONEDAS DISTINTAS"
             return render_template("purchase.html", form=form , cryptoError=cryptoError, data=[quant,pu])
+        
+        # Validacion de compatibilidad de calculo entre criptomendas
+
+        if slctFrom == 'EUR' and slctTo != 'BTC':
+            quant = 0
+            pu = 0
+            cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR {} CON EUROS".format(slctTo)
+            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+
+        if slctTo == 'EUR'and slctFrom != "BTC":
+            quant = 0
+            pu = 0
+            cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR EUROS CON {}".format(slctFrom)
+            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+
 
         dataQuant = api(slctFrom, slctTo)
         quant = float(dataQuant)*float(units)
@@ -285,13 +300,28 @@ def purchase():
 
     if request.values.get("submitCompra"):
 
-        # Validacion de monedas distintas en compra
+        # Validacion de monedas distintas
 
         if slctFrom == slctTo:
             quant = 0
             pu = 0
             cryptoError = "OPERACIÓN INCORRECTA - DEBE ELEGIR DOS MONEDAS DISTINTAS"
             return render_template("purchase.html", form=form , cryptoError=cryptoError, data=[quant,pu])
+
+        # Validacion de compatibilidad de compra entre criptomendas
+
+        if slctFrom == 'EUR' and slctTo != 'BTC':
+            quant = 0
+            pu = 0
+            cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR {} CON EUROS".format(slctTo)
+            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+
+        if slctTo == 'EUR'and slctFrom != "BTC":
+            quant = 0
+            pu = 0
+            cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR EUROS CON {}".format(slctFrom)
+            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+
 
         #Calculo de saldo de la moneda con la que se quiere comprar
 
@@ -307,9 +337,9 @@ def purchase():
             dataQuant = api(slctFrom, slctTo)
             quant = float(dataQuant)*float(units)
 
-            # Comprobación de existemcia de saldo con la crypto con la que se quiere comprar
+            # Comprobación de saldo suficiente con la crypto que se quiere comprar
 
-            if float(dataQuant)*saldo <= quant or slctFrom == 'EUR':
+            if float(dataQuant)*saldo >= quant or slctFrom == 'EUR':
 
                 conex = sqlite3.connect(BBDD)
                 cursor = conex.cursor()
