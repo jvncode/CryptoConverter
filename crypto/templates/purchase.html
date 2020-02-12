@@ -31,6 +31,9 @@
         {% else %}
             <p class="p_u_cant">{{"{:,.5f}".format(data[1]) }} {{ data[2] }}</p>
         {% endif %}
+        {% if validError %}
+            <p class="valid_error">{{ validError }}</p>
+        {% endif %}
         {% if cryptoError %}
             <p class="crypto_error">{{ cryptoError }}</p>
         {% endif %}

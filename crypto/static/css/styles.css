@@ -198,6 +198,16 @@
     bottom:120px;
 }
 
+.valid_error {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 10px;
+    position: relative;
+    left: 230px;
+    bottom:380px;
+}
 .crypto_error {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;

@@ -42,9 +42,7 @@ def dataQuery(consulta):
 
     movs = cursor.execute(consulta).fetchall()
 
-    if len(movs) == 1:
-        movs = movs[0]
-    elif len(movs) == 0:
+    if len(movs) == 0:
         movs = None
 
     conex.commit()
@@ -239,8 +237,10 @@ def cryptoSaldo():
     cryptoBalance = [balanceBTC[0], balanceETH[0], balanceXRP[0], balanceLTC[0], balanceBCH[0], balanceBNB[0], balanceUSDT[0], balanceEOS[0], balanceBSV[0], balanceXLM[0], balanceADA[0], balanceTRX[0]]
 
     for x in range(len(cryptoBalance)):
-        if cryptoBalance[x] == None:
+        if cryptoBalance[x] == (None,):
             cryptoBalance[x]=0
+        else:
+            cryptoBalance[x]=cryptoBalance[x][0]
 
     return cryptoBalance
 
@@ -248,7 +248,6 @@ def cryptoSaldo():
 def index():
 
     registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
-
     return render_template("index.html", registros = registros)
 
 
@@ -268,6 +267,11 @@ def purchase():
 
 
     if request.values.get("submitCalcular"):
+        if not form.validate():
+            quant = 0
+            pu = 0
+            validError = "OPERACIÓN INCORRECTA - LA CANTIDAD DEBE SER NUMÉRICA Y SUPERIOR A 0"
+            return render_template("purchase.html", form=form , validError=validError, data=[quant,pu])
 
         # Validacion de monedas distintas
 
@@ -324,13 +328,30 @@ def purchase():
 
 
         #Calculo de saldo de la moneda con la que se quiere comprar
+        if slctFrom == 'EUR':
+            saldo = 9999999999
+        else:
+            saldoStr = dataQuery('''
+                        WITH BALANCE
+                        AS
+                        (
+                        SELECT SUM(to_quantity) AS saldo
+                        FROM MOVEMENTS
+                        WHERE to_currency LIKE "%{}%"
+                        UNION ALL
+                        SELECT -SUM(from_quantity) AS saldo
+                        FROM MOVEMENTS
+                        WHERE from_currency LIKE "%{}%"
+                        )
+                        SELECT SUM(saldo)
+                        FROM BALANCE;
+                        '''.format(slctFrom, slctFrom))
+            if saldoStr[0] == (None,):
+                saldo = 0
+            else:
+                saldo = saldoStr[0][0]
 
-        saldoStr = dataQuery('SELECT SUM(to_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%{}%";'.format(slctFrom))
-        saldo = saldoStr[0]
-        if saldo == None:
-            saldo=0
-
-        if slctFrom == 'EUR' or saldo != None:
+        if slctFrom == 'EUR' or saldo != 0:
 
             fecha=dt.strftime("%d/%m/%Y")
             hora=dt.strftime("%H:%M:%S")
@@ -339,7 +360,7 @@ def purchase():
 
             # Comprobación de saldo suficiente con la crypto que se quiere comprar
 
-            if float(dataQuant)*saldo >= quant or slctFrom == 'EUR':
+            if saldo >= quant or slctFrom == 'EUR':
 
                 conex = sqlite3.connect(BBDD)
                 cursor = conex.cursor()
@@ -381,15 +402,21 @@ def inverter():
 
     InverFrom= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE from_currency LIKE "%EUR%";')
     InverTo= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%EUR%";')
+    totalInverFrom = 0
+    totalInverTo = 0
+    for x in range(len(InverFrom)):
+        if InverFrom[x] == (None,):
+            totalInverFrom += 0
+        else:
+            InverFromInt = InverFrom[x][0]
+            totalInverFrom += InverFromInt
 
-    for x in InverFrom:
-        totalInverFrom = x
-
-    if None in InverTo:
-        totalInverTo = 0
-    else:
-        for y in InverTo:
-            totalInverTo = y
+    for x in range(len(InverTo)):
+        if InverTo[x] == (None,):
+            totalInverTo += 0
+        else:
+            InverToInt = InverTo[x][0]
+            totalInverTo += InverToInt
 
     totalInver = totalInverFrom + totalInverTo
 
@@ -402,7 +429,9 @@ def inverter():
     cryptoValorActual = {}
     valorAct = 0
     for coin in cryptos:
-        cryptoValorActual[coin] = api('EUR',coin) * cryptoSaldo()[xi]
+        cotizacion = api('EUR',coin)
+        saldoCoin = cryptoSaldo()[xi]
+        cryptoValorActual[coin] = cotizacion * saldoCoin
         valorAct += cryptoValorActual[coin]
         xi += 1
 
