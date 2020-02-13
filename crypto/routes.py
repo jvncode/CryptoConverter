@@ -51,196 +51,30 @@ def dataQuery(consulta):
     return movs
 
 def cryptoSaldo():
+    cryptoBalance = []
+    for coin in cryptos:
 
-    balanceBTC = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "BTC"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "BTC"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
+        cryptoBalanceCoin = dataQuery('''
+                                WITH BALANCE
+                                AS
+                                (
+                                SELECT SUM(to_quantity) AS saldo
+                                FROM MOVEMENTS
+                                WHERE to_currency LIKE "%{}%"
+                                UNION ALL
+                                SELECT -SUM(from_quantity) AS saldo
+                                FROM MOVEMENTS
+                                WHERE from_currency LIKE "%{}%"
+                                )
+                                SELECT SUM(saldo)
+                                FROM BALANCE
+                                '''.format(coin, coin))
 
-    balanceETH = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "ETH"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "ETH"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceXRP = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "XRP"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "XRP"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceLTC = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "LTC"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "LTC"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceBCH = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "BCH"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "BCH"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceBNB = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "BNB"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "BNB"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceUSDT = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "USDT"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "USDT"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceEOS = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "EOS"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "EOS"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceBSV = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "BSV"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "BSV"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceXLM = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "XLM"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "XLM"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceADA = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "ADA"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "ADA"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-    balanceTRX = dataQuery('''
-                            WITH BALANCE
-                            AS
-                            (
-                            SELECT SUM(to_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE to_currency LIKE "TRX"
-                            UNION ALL
-                            SELECT -SUM(from_quantity) AS saldo
-                            FROM MOVEMENTS
-                            WHERE from_currency LIKE "TRX"
-                            )
-                            SELECT SUM(saldo)
-                            FROM BALANCE
-                            ''')
-
-    cryptoBalance = [balanceBTC[0], balanceETH[0], balanceXRP[0], balanceLTC[0], balanceBCH[0], balanceBNB[0], balanceUSDT[0], balanceEOS[0], balanceBSV[0], balanceXLM[0], balanceADA[0], balanceTRX[0]]
-
-    for x in range(len(cryptoBalance)):
-        if cryptoBalance[x] == (None,):
-            cryptoBalance[x]=0
+        if cryptoBalanceCoin[0] == (None,):
+            cryptoBalanceCoin=0
+            cryptoBalance.append(cryptoBalanceCoin)
         else:
-            cryptoBalance[x]=cryptoBalance[x][0]
+            cryptoBalance.append(cryptoBalanceCoin[0][0])
 
     return cryptoBalance
 
