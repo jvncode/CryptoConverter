@@ -269,4 +269,8 @@ def inverter():
         valorAct += cryptoValorActual[coin]
         xi += 1
 
-    return render_template("status.html", totalInver=totalInver, cryptoBalance=cryptoSaldo(), valorAct=valorAct)
+    # Calculo Beneficio/Perdida
+
+    dif = valorAct - totalInver
+
+    return render_template("status.html", totalInver=totalInver, cryptoBalance=cryptoSaldo(), valorAct=valorAct, dif=dif)

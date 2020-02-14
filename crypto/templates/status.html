@@ -47,24 +47,42 @@
     {% else %}
         <h2 class="total_invertido">Invertido:</h2>
         {% if totalInver >= 1 %}
-        <h2 class="inversion">{{ "{:,.2f}".format(totalInver) }} €</h2>
+            <h2 class="inversion">{{ "{:,.2f}".format(totalInver) }} €</h2>
         {% else %}
-        <h2 class="inversion">{{ "{:,.5f}".format(totalInver) }} €</h2>
+            <h2 class="inversion">{{ "{:,.5f}".format(totalInver) }} €</h2>
         {% endif %}
         <h2 class="total_invertido_display"></h2>
         <br><br>
         <h2 class="valor_actual">Valor actual:</h2>
         {% if valorAct >= 1 %}
-        <h2 class="valor_actual_display">{{ "{:,.2f}".format(valorAct) }} €</h2>
+            <h2 class="valor_actual_display">{{ "{:,.2f}".format(valorAct) }} €</h2>
         {% else %}
-        <h2 class="valor_actual_display">{{ "{:,.5f}".format(valorAct) }} €</h2>
+            <h2 class="valor_actual_display">{{ "{:,.5f}".format(valorAct) }} €</h2>
         {% endif %}
+        {% if dif > 0 %}
+            <h2 class="balance_total">Beneficio:</h2>
+            {% if dif >= 1 %}
+                <h2 class="balance_total_beneficio">{{ "{:,.2f}".format(dif) }} €</h2>
+            {% else %}
+                <h2 class="balance_total_beneficio">{{ "{:,.5f}".format(dif) }} €</h2>
+            {% endif %}
+        {% elif dif < 0 %}
+            <h2 class="balance_total">Pérdida:</h2>
+            {% if dif >= 1 %}
+                <h2 class="balance_total_perdida">{{ "{:,.2f}".format(dif) }} €</h2>
+            {% else %}
+                <h2 class="balance_total_perdida">{{ "{:,.5f}".format(dif) }} €</h2>
+            {% endif %}
+        {% else %}
+            <h2 class="balance_total">Sin pérdida ni beneficio:</h2>
+        {% endif %}
+
         <h1 align="center" class="cryptosaldo">SALDO CRIPTOMONEDAS</h1>
         <table WIDTH="80%" class="cryptohead" align="center">
             <thead>
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;BTC</th>
-                    <th>&nbsp;&nbsp;&nbsp;ETH</th>
+                    <th>&nbsp;ETH</th>
                     <th>XRP</th>
                     <th>LTC</th>
                     <th>BCH</th>

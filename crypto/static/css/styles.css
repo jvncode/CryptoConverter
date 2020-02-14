@@ -362,6 +362,44 @@
     bottom:130px;
 }
 
+.balance_total {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 740px;
+    bottom:220px;
+}
+
+.balance_total_beneficio {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    text-decoration: underline #981ce0;
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 930px;
+    bottom:270px;
+}
+
+.balance_total_perdida {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(231, 26, 26);
+    font-weight: bold;
+    text-decoration: underline rgb(231, 26, 26);
+    font-size: 1.2em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: 930px;
+    bottom:270px;
+}
+
 .cryptosaldo {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -371,7 +409,7 @@
     padding: 10px;
     position: relative;
     left: -5px;
-    bottom:110px;
+    bottom:190px;
 
 }
 
@@ -379,7 +417,7 @@
 
     position: relative;
     left: 0px;
-    bottom:90px;
+    bottom:170px;
 }
 
 td {
@@ -405,7 +443,7 @@ th {
     border: 5px;
     position: relative;
     left: 650px;
-    bottom: 310px
+    bottom: 390px
 }
 
 
