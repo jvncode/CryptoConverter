@@ -370,7 +370,7 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 740px;
+    left: 800px;
     bottom:220px;
 }
 
@@ -390,14 +390,33 @@
 .balance_total_perdida {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: rgb(231, 26, 26);
     font-weight: bold;
     text-decoration: underline rgb(231, 26, 26);
-    font-size: 1.2em; color: rgb(0, 0, 0);
+    font-size: 1.2em; color: rgb(231, 26, 26);
     padding: 10px;
     position: relative;
     left: 930px;
     bottom:270px;
+}
+
+.cryptosaldo_sin {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(#000000);
+    font-weight: bold;
+    font-size: 1.8em; color: rgb(0, 0, 0);
+    padding: 10px;
+    position: relative;
+    left: -5px;
+    bottom:110px;
+
+}
+
+.cryptohead_sin {
+
+    position: relative;
+    left: 0px;
+    bottom:100px;
 }
 
 .cryptosaldo {
@@ -434,6 +453,19 @@ th {
 
 
 }
+
+.btnVolver_sin {
+
+    background-color: #981ce0;
+    color: whitesmoke;
+    width: 320px;
+    padding: 10px;
+    border: 5px;
+    position: relative;
+    left: 650px;
+    bottom: 320px
+}
+
 .btnVolver {
 
     background-color: #981ce0;

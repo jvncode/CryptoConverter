@@ -114,7 +114,7 @@ def purchase():
             pu = 0
             cryptoError = "OPERACIÓN INCORRECTA - DEBE ELEGIR DOS MONEDAS DISTINTAS"
             return render_template("purchase.html", form=form , cryptoError=cryptoError, data=[quant,pu])
-        
+
         # Validacion de compatibilidad de calculo entre criptomendas
 
         if slctFrom == 'EUR' and slctTo != 'BTC':
@@ -137,6 +137,12 @@ def purchase():
         return render_template("purchase.html", form=form, data=[quant, pu, slctFrom])
 
     if request.values.get("submitCompra"):
+
+        if not form.validate():
+            quant = 0
+            pu = 0
+            validError = "OPERACIÓN INCORRECTA - LA CANTIDAD DEBE SER NUMÉRICA Y SUPERIOR A 0"
+            return render_template("purchase.html", form=form , validError=validError, data=[quant,pu])
 
         # Validacion de monedas distintas
 

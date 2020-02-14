@@ -13,8 +13,8 @@
         <br><br><br>
         <h2 class="valor_actual">Valor actual:</h2>
         <h2 class="valor_actual_display"> 0 €</h2>
-        <h1 align="center" class="cryptosaldo">SALDO CRIPTOMONEDAS</h1>
-        <table WIDTH="80%" class="cryptohead" align="center">
+        <h1 align="center" class="cryptosaldo_sin">SALDO CRIPTOMONEDAS</h1>
+        <table WIDTH="80%" class="cryptohead_sin" align="center">
             <thead>
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;BTC</th>
@@ -44,6 +44,7 @@
                 {% endif %}
             </tbody>
         </table>
+        <a href="/" class="btnVolver_sin">Inicio</a>
     {% else %}
         <h2 class="total_invertido">Invertido:</h2>
         {% if totalInver >= 1 %}
@@ -68,15 +69,14 @@
             {% endif %}
         {% elif dif < 0 %}
             <h2 class="balance_total">Pérdida:</h2>
-            {% if dif >= 1 %}
+            {% if dif <= -1 %}
                 <h2 class="balance_total_perdida">{{ "{:,.2f}".format(dif) }} €</h2>
             {% else %}
                 <h2 class="balance_total_perdida">{{ "{:,.5f}".format(dif) }} €</h2>
             {% endif %}
         {% else %}
-            <h2 class="balance_total">Sin pérdida ni beneficio:</h2>
+            <h2 class="balance_total">Sin pérdida ni beneficio</h2>
         {% endif %}
-
         <h1 align="center" class="cryptosaldo">SALDO CRIPTOMONEDAS</h1>
         <table WIDTH="80%" class="cryptohead" align="center">
             <thead>
@@ -108,6 +108,6 @@
                 {% endif %}
             </tbody>
         </table>
+        <a href="/" class="btnVolver">Inicio</a>
     {% endif %}
-    <a href="/" class="btnVolver">Inicio</a>
     {% endblock %}
