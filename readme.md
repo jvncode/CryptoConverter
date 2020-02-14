@@ -1,7 +1,9 @@
 # Crypto Converter
 
 Proyecto Final BootCamp Zero - IV Edición | KeepCoding
+
 Aplicación web en Flask
+
 Simulador de conversión e inversión en Criptomonedas
 
 ## Dirección web de la Aplicación 📌
@@ -9,7 +11,7 @@ Simulador de conversión e inversión en Criptomonedas
 https:// (aún por determinar)
 ```
 
-# Requisitos de instalación 🔧
+## Requisitos de instalación 🔧
 
 * **Instalar "requirements":**
 ```
@@ -21,7 +23,17 @@ Visitar la web de CoinMarketCap para conseguir una APIKEY:
 https://pro.coinmarketcap.com/login/
 ```
 Introducir su APIKEY en el archivo **config_show.py**
+
 Renombrar **config_show.py** por **config.py**
+
+## Construido con 🛠️
+
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/) - Web develoment
+* [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/) - Form library
+* [Picnic CSS](https://picnicss.com/) - MiniFramework CSS
+* [Jinja](https://jinja.palletsprojects.com/en/2.11.x/) - Web template engine
+* [SQLite](https://www.sqlite.org/index.html) - Database engine
+* [AWS](https://aws.amazon.com/es/) - Web deploy
 
 ## Desarrollador ⌨️
 
