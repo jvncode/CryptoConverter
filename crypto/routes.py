@@ -12,7 +12,7 @@ BBDD = './data/CryptoData.db'
 API_KEY=app.config['API_KEY']
 
 cryptos = ("BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM", "ADA", "TRX")
-dt = datetime.datetime.now()
+
 
 def api(cryptoFrom, cryptoTo):
 
@@ -193,6 +193,7 @@ def purchase():
 
         if slctFrom == 'EUR' or saldo != 0:
 
+            dt = datetime.datetime.now()
             fecha=dt.strftime("%d/%m/%Y")
             hora=dt.strftime("%H:%M:%S")
             dataQuant = api(slctFrom, slctTo)
