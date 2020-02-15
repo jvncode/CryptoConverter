@@ -29,6 +29,7 @@ Renombrar **config_show.py** por **config.py**
 
 ## Construido con 🛠️
 
+* [Python](https://www.python.org/) - Programming language
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) - Web develoment
 * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/) - Form library
 * [Picnic CSS](https://picnicss.com/) - MiniFramework CSS
@@ -38,4 +39,4 @@ Renombrar **config_show.py** por **config.py**
 
 ## Desarrollador ⌨️
 
-* **Jesús Villegas** - [GitHub: jvncode](https://github.com/jvncode) - [LinkedIn](https://www.linkedin.com/in/jes%C3%BAs-villegas-609b71198/)
+* **Jesús Villegas** | [GitHub: jvncode](https://github.com/jvncode) - [LinkedIn](https://www.linkedin.com/in/jes%C3%BAs-villegas-609b71198/)
