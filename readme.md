@@ -18,6 +18,7 @@ https:// (aún por determinar)
 pip install -r requirements.txt
 ```
 * **Vincular API**
+
 Visitar la web de CoinMarketCap para conseguir una APIKEY:
 ```
 https://pro.coinmarketcap.com/login/
@@ -26,7 +27,7 @@ Introducir su APIKEY en el archivo **config_show.py**
 
 Renombrar **config_show.py** por **config.py**
 
-## Construido con 🛠️
+## Construido con 🛠️
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) - Web develoment
 * [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/) - Form library
