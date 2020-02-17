@@ -46,6 +46,9 @@
         </table>
         <a href="/" class="btnVolver_sin">Inicio</a>
     {% else %}
+        {% if errorAPI %}
+            <p class="error_api_status">{{ errorAPI }}</p>
+        {% endif %}
         <h2 class="total_invertido">Invertido:</h2>
         {% if totalInver >= 1 %}
             <h2 class="inversion">{{ "{:,.2f}".format(totalInver) }} €</h2>

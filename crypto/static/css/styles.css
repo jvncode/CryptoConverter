@@ -241,6 +241,7 @@
     bottom:380px;
 }
 
+
 .error_db {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -252,6 +253,29 @@
     bottom:380px;
 }
 
+.error_api {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 10px;
+    position: relative;
+    left: 490px;
+    bottom:420px;
+}
+
+.error_api_status {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 0px;
+    position: relative;
+    left: 470px;
+    bottom: 0px;
+
+
+}
 .sin_saldo {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;

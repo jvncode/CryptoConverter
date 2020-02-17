@@ -43,6 +43,9 @@
         {% if alert %}
             <p class="alerta_saldo">{{ alert }}</p>
         {% endif %}
+        {% if errorAPI %}
+            <p class="error_api">{{ errorAPI }}</p>
+        {% endif %}
         {% if errorDB %}
             <p class="error_db">{{ errorDB }}</p>
         {% endif %}

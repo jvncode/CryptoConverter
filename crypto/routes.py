@@ -26,14 +26,39 @@ def api(cryptoFrom, cryptoTo):
     session = Session()
     session.headers.update(headers)
 
+    response = session.get(url)
+    data = json.loads(response.text)
     try:
-        response = session.get(url)
-        data = json.loads(response.text)
-    except (ConnectionError, Timeout, TooManyRedirects) as e:
-        print(e)
+        return ('', data['data']['quote'][cryptoFrom]['price'])
+    except:
+        errorCodeAPI = data['status']['error_code']
+        return ('error', errorCodeAPI)
 
-    return data['data']['quote'][cryptoFrom]['price']
+def ApiErrors(codigo):
+    if codigo == 1001:
+        msg = "La API KEY no es válida"
+    elif codigo == 1002:
+        msg= "No existe API KEY"
+    elif codigo == 1003:
+        msg= "La API KEY no está activada"
+    elif codigo == 1004:
+        msg= "La API KEY ha caducado"
+    elif codigo == 1005:
+        msg= "Se requiere API KEY"
+    elif codigo == 1006:
+        msg= "API KEY incompatible con esta operación"
+    elif codigo == 1007:
+        msg= "API KEY deshabilitada"
+    elif codigo == 1008:
+        msg= "Excedido límite de velocidad de solicitud HTTP de la API KEY"
+    elif codigo == 1009:
+        msg= "Excedido límite de tarifa diaria de API KEY"
+    elif codigo == 1010:
+        msg= "Excedido límite de tarifa mensual de API KEY"
+    elif codigo == 1011:
+        msg= "Alcanzado límite de velocidad de la IP"
 
+    return msg
 
 def dataQuery(consulta):
 
@@ -129,8 +154,16 @@ def purchase():
             cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR EUROS CON {}".format(slctFrom)
             return render_template("purchase.html", menu='purchase', form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
 
+        apiConsult = api(slctFrom, slctTo)
+        if apiConsult[0] =='error':
+            quant = 0
+            pu = 0
+            messageError = ApiErrors(apiConsult[1])
+            errorAPI = "ERROR EN API - {}".format(messageError)
+            return render_template("purchase.html", menu='purchase', form=form , errorAPI=errorAPI, data=[quant,pu])
+        else:
+            dataQuant = apiConsult[1]
 
-        dataQuant = api(slctFrom, slctTo)
         quant = float(dataQuant)*float(units)
         pu = dataQuant
 
@@ -196,8 +229,16 @@ def purchase():
             dt = datetime.datetime.now()
             fecha=dt.strftime("%d/%m/%Y")
             hora=dt.strftime("%H:%M:%S")
-            dataQuant = api(slctFrom, slctTo)
-            quant = float(dataQuant)*float(units)
+            apiConsult = api(slctFrom, slctTo)
+            if apiConsult[0] =='error':
+                quant = 0
+                pu = 0
+                messageError = ApiErrors(apiConsult[1])
+                errorAPI = "ERROR EN API - {}".format(messageError)
+                return render_template("purchase.html", menu='purchase', form=form , errorAPI=errorAPI, data=[quant,pu])
+            else:
+                dataQuant = apiConsult[1]
+                quant = float(dataQuant)*float(units)
 
             # Comprobación de saldo suficiente con la crypto que se quiere comprar
 
@@ -270,11 +311,20 @@ def inverter():
     cryptoValorActual = {}
     valorAct = 0
     for coin in cryptos:
-        cotizacion = api('EUR',coin)
-        saldoCoin = cryptoSaldo()[xi]
-        cryptoValorActual[coin] = cotizacion * saldoCoin
-        valorAct += cryptoValorActual[coin]
-        xi += 1
+        apiConsult = api('EUR',coin)
+        if apiConsult[0] =='error':
+            totalInver = 0
+            valorAct = 0
+            dif = 0
+            messageError = ApiErrors(apiConsult[1])
+            errorAPI = "ERROR EN API - {}".format(messageError)
+            return render_template("status.html", menu='status', errorAPI=errorAPI, totalInver=totalInver, cryptoBalance=cryptoSaldo(), valorAct=valorAct, dif=dif)
+        else:
+            cotizacion = apiConsult[1]
+            saldoCoin = cryptoSaldo()[xi]
+            cryptoValorActual[coin] = cotizacion * saldoCoin
+            valorAct += cryptoValorActual[coin]
+            xi += 1
 
     # Calculo Beneficio/Perdida
 
