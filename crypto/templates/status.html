@@ -7,6 +7,9 @@
     <hr width="50%" size="20" style="color: hsl(0, 0%, 0%);"/>
 
     {% if movOrNot == True %}
+        {% if errorDB %}
+            <p class="error_db_status">{{ errorDB }}</p>
+        {% endif %}
         <h2 class="total_invertido">Invertido:</h2>
         <h2 class="inversion"> 0 €</h2>
         <h2 class="total_invertido_display"></h2>

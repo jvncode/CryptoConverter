@@ -78,7 +78,6 @@ def dataQuery(consulta):
 def cryptoSaldo():
     cryptoBalance = []
     for coin in cryptos:
-
         cryptoBalanceCoin = dataQuery('''
                                 WITH BALANCE
                                 AS
@@ -94,20 +93,23 @@ def cryptoSaldo():
                                 SELECT SUM(saldo)
                                 FROM BALANCE
                                 '''.format(coin, coin))
-
         if cryptoBalanceCoin[0] == (None,):
             cryptoBalanceCoin=0
             cryptoBalance.append(cryptoBalanceCoin)
         else:
             cryptoBalance.append(cryptoBalanceCoin[0][0])
-
     return cryptoBalance
 
 @app.route("/")
 def index():
+        try:
+            registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
+            return render_template("index.html", menu='index', registros = registros)
 
-    registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
-    return render_template("index.html", menu='index', registros = registros)
+        except sqlite3.Error:
+            registros = None
+            errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+            return render_template("index.html", menu='index', errorDB=errorDB, registros=registros)
 
 
 @app.route("/purchase", methods=['GET', 'POST'])
@@ -204,21 +206,28 @@ def purchase():
         if slctFrom == 'EUR':
             saldo = 9999999999
         else:
-            saldoStr = dataQuery('''
-                        WITH BALANCE
-                        AS
-                        (
-                        SELECT SUM(to_quantity) AS saldo
-                        FROM MOVEMENTS
-                        WHERE to_currency LIKE "%{}%"
-                        UNION ALL
-                        SELECT -SUM(from_quantity) AS saldo
-                        FROM MOVEMENTS
-                        WHERE from_currency LIKE "%{}%"
-                        )
-                        SELECT SUM(saldo)
-                        FROM BALANCE;
-                        '''.format(slctFrom, slctFrom))
+            try:
+                saldoStr = dataQuery('''
+                            WITH BALANCE
+                            AS
+                            (
+                            SELECT SUM(to_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE to_currency LIKE "%{}%"
+                            UNION ALL
+                            SELECT -SUM(from_quantity) AS saldo
+                            FROM MOVEMENTS
+                            WHERE from_currency LIKE "%{}%"
+                            )
+                            SELECT SUM(saldo)
+                            FROM BALANCE;
+                            '''.format(slctFrom, slctFrom))
+            except sqlite3.Error:
+                quant = 0
+                pu = 0
+                errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+                return render_template("purchase.html", menu='purchase', form=form , errorDB=errorDB, data=[quant,pu])
+
             if saldoStr[0] == (None,):
                 saldo = 0
             else:
@@ -257,10 +266,15 @@ def purchase():
                     return render_template("purchase.html", menu='purchase', form=form , errorDB=errorDB, data=[quant,pu])
 
                 conex.commit()
-                registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
-                conex.close()
-
-                return render_template("index.html", menu='index', form=form, registros=registros)
+                try:
+                    registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
+                    conex.close()
+                    return render_template("index.html", menu='index', form=form, registros=registros)
+                except sqlite3.Error:
+                    quant = 0
+                    pu = 0
+                    errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+                    return render_template("purchase.html", menu='purchase', form=form , errorDB=errorDB, data=[quant,pu])
             else:
                 pu = dataQuant
                 sinSaldo = "NO TIENE SALDO SUFICIENTE EN {} PARA REALIZAR ESTA OPERACIÓN".format(slctFrom)
@@ -276,14 +290,29 @@ def purchase():
 def inverter():
 
     # Calculo Inversion
-
-    movOrNot = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
+    
+    try:
+        movOrNot = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
+    except sqlite3.Error:
+        totalInver = 0
+        valorAct = 0
+        dif = 0
+        errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+        return render_template("status.html", menu='status', errorDB=errorDB, movOrNot=True)
 
     if movOrNot == None:
         return render_template("status.html", menu='status', movOrNot=True)
 
-    InverFrom= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE from_currency LIKE "%EUR%";')
-    InverTo= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%EUR%";')
+    try:
+        InverFrom= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE from_currency LIKE "%EUR%";')
+        InverTo= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%EUR%";')
+    except sqlite3.Error:
+        totalInver = 0
+        valorAct = 0
+        dif = 0
+        errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+        return render_template("status.html", menu='status', errorDB=errorDB, movOrNot=True)
+
     totalInverFrom = 0
     totalInverTo = 0
     for x in range(len(InverFrom)):
@@ -303,8 +332,14 @@ def inverter():
     totalInver = totalInverFrom + totalInverTo
 
     # Calculo saldo de Cryptomonedas
-
-    cryptoSaldo()
+    try:
+        cryptoSaldo()
+    except sqlite3.Error:
+        totalInver = 0
+        valorAct = 0
+        dif = 0
+        errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
+        return render_template("status.html", menu='status', errorDB=errorDB, movOrNot=True)
 
     # Calculo Valor Actual de todas las cryptomonedas en Euros y totalizarlas en Status
     xi = 0
