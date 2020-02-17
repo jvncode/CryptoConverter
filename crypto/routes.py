@@ -82,7 +82,7 @@ def cryptoSaldo():
 def index():
 
     registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
-    return render_template("index.html", registros = registros)
+    return render_template("index.html", menu='index', registros = registros)
 
 
 @app.route("/purchase", methods=['GET', 'POST'])
@@ -97,7 +97,7 @@ def purchase():
 
     if request.method == 'GET':
 
-        return render_template("purchase.html", form=form , data=[quant,pu])
+        return render_template("purchase.html", menu='purchase', form=form, data=[quant,pu])
 
 
     if request.values.get("submitCalcular"):
@@ -105,7 +105,7 @@ def purchase():
             quant = 0
             pu = 0
             validError = "OPERACIÓN INCORRECTA - LA CANTIDAD DEBE SER NUMÉRICA Y SUPERIOR A 0"
-            return render_template("purchase.html", form=form , validError=validError, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase',form=form , validError=validError, data=[quant,pu])
 
         # Validacion de monedas distintas
 
@@ -113,7 +113,7 @@ def purchase():
             quant = 0
             pu = 0
             cryptoError = "OPERACIÓN INCORRECTA - DEBE ELEGIR DOS MONEDAS DISTINTAS"
-            return render_template("purchase.html", form=form , cryptoError=cryptoError, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase',form=form , cryptoError=cryptoError, data=[quant,pu])
 
         # Validacion de compatibilidad de calculo entre criptomendas
 
@@ -121,20 +121,20 @@ def purchase():
             quant = 0
             pu = 0
             cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR {} CON EUROS".format(slctTo)
-            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase',form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
 
         if slctTo == 'EUR'and slctFrom != "BTC":
             quant = 0
             pu = 0
             cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR EUROS CON {}".format(slctFrom)
-            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase', form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
 
 
         dataQuant = api(slctFrom, slctTo)
         quant = float(dataQuant)*float(units)
         pu = dataQuant
 
-        return render_template("purchase.html", form=form, data=[quant, pu, slctFrom])
+        return render_template("purchase.html", menu='purchase', form=form, data=[quant, pu, slctFrom])
 
     if request.values.get("submitCompra"):
 
@@ -142,7 +142,7 @@ def purchase():
             quant = 0
             pu = 0
             validError = "OPERACIÓN INCORRECTA - LA CANTIDAD DEBE SER NUMÉRICA Y SUPERIOR A 0"
-            return render_template("purchase.html", form=form , validError=validError, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase', form=form , validError=validError, data=[quant,pu])
 
         # Validacion de monedas distintas
 
@@ -150,7 +150,7 @@ def purchase():
             quant = 0
             pu = 0
             cryptoError = "OPERACIÓN INCORRECTA - DEBE ELEGIR DOS MONEDAS DISTINTAS"
-            return render_template("purchase.html", form=form , cryptoError=cryptoError, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase', form=form , cryptoError=cryptoError, data=[quant,pu])
 
         # Validacion de compatibilidad de compra entre criptomendas
 
@@ -158,13 +158,13 @@ def purchase():
             quant = 0
             pu = 0
             cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR {} CON EUROS".format(slctTo)
-            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase', form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
 
         if slctTo == 'EUR'and slctFrom != "BTC":
             quant = 0
             pu = 0
             cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR EUROS CON {}".format(slctFrom)
-            return render_template("purchase.html", form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
+            return render_template("purchase.html", menu='purchase', form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
 
 
         #Calculo de saldo de la moneda con la que se quiere comprar
@@ -213,22 +213,22 @@ def purchase():
                     quant = 0
                     pu = 0
                     errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
-                    return render_template("purchase.html", form=form , errorDB=errorDB, data=[quant,pu])
+                    return render_template("purchase.html", menu='purchase', form=form , errorDB=errorDB, data=[quant,pu])
 
                 conex.commit()
                 registros = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
                 conex.close()
 
-                return render_template("index.html", form=form, registros=registros)
+                return render_template("index.html", menu='index', form=form, registros=registros)
             else:
                 pu = dataQuant
                 sinSaldo = "NO TIENE SALDO SUFICIENTE EN {} PARA REALIZAR ESTA OPERACIÓN".format(slctFrom)
-                return render_template("purchase.html", form=form , sinSaldo=sinSaldo, data=[quant,pu])
+                return render_template("purchase.html", menu='purchase', form=form , sinSaldo=sinSaldo, data=[quant,pu])
         else:
             quant = 0
             pu = 0
             alert = "NO EXISTE SALDO DE COMPRA EN LA CRYPTOMONEDA {}".format(slctFrom)
-            return render_template("purchase.html", form=form, data=[quant, pu, slctFrom], alert=alert)
+            return render_template("purchase.html", menu='purchase', form=form, data=[quant, pu, slctFrom], alert=alert)
 
 
 @app.route("/status")
@@ -239,7 +239,7 @@ def inverter():
     movOrNot = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
 
     if movOrNot == None:
-        return render_template("status.html", movOrNot=True)
+        return render_template("status.html", menu='status', movOrNot=True)
 
     InverFrom= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE from_currency LIKE "%EUR%";')
     InverTo= dataQuery('SELECT SUM(from_quantity) FROM MOVEMENTS WHERE to_currency LIKE "%EUR%";')
@@ -280,4 +280,4 @@ def inverter():
 
     dif = valorAct - totalInver
 
-    return render_template("status.html", totalInver=totalInver, cryptoBalance=cryptoSaldo(), valorAct=valorAct, dif=dif)
+    return render_template("status.html", menu='status', totalInver=totalInver, cryptoBalance=cryptoSaldo(), valorAct=valorAct, dif=dif)

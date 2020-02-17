@@ -121,9 +121,16 @@
 
     background-color: rgb(174, 170, 238) ;
     position: relative;
-    left: 275px;
-    bottom:120px;
+    left: 595px;
+    bottom:110px;
 
+}
+.calc_q {
+
+    background: #524e4ef3;
+    position: relative;
+    left: 610px;
+    bottom:110px;
 }
 
 
@@ -135,8 +142,8 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 800px;
-    bottom:195px;
+    left: 480px;
+    bottom:218px;
 }
 
 .quant {
@@ -146,8 +153,8 @@
     font-size: 1.1em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 880px;
-    bottom:306px;
+    left: 520px;
+    bottom:330px;
 
 
 }
@@ -159,7 +166,7 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 850px;
+    left: 440px;
     bottom:195px;
 
 
@@ -173,8 +180,8 @@
     font-size: 1.2em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 800px;
-    bottom:300px;
+    left: 450px;
+    bottom:330px;
 }
 
 .p_u_cant {
@@ -185,17 +192,10 @@
     font-size: 1.1em; color: rgb(0, 0, 0);
     padding: 10px;
     position: relative;
-    left: 880px;
-    bottom:370px;
+    left: 520px;
+    bottom:400px;
 
 
-}
-.calc_q {
-
-    background: #524e4ef3;
-    position: relative;
-    left: 280px;
-    bottom:120px;
 }
 
 .valid_error {
@@ -269,8 +269,8 @@
     background: #981ce0;
     width: 100px;
     position: relative;
-    left: 900px;
-    bottom:370px;
+    left: 960px;
+    bottom:400px;
 }
 
 .btn_clear_purchase {
@@ -282,7 +282,7 @@
     border: 5px;
     position: relative;
     left: 700px;
-    bottom:370px;
+    bottom:400px;
 }
 
 .inicio_purchase {
@@ -293,8 +293,8 @@
     padding: 10px;
     border: 5px;
     position: relative;
-    left: 300px;
-    bottom: 370px
+    left: 370px;
+    bottom: 400px
 
 }
 
