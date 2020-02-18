@@ -13,7 +13,6 @@ API_KEY=app.config['API_KEY']
 
 cryptos = ("BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM", "ADA", "TRX")
 
-
 def api(cryptoFrom, cryptoTo):
 
     url= "https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount=1&symbol={}&convert={}&CMC_PRO_API_KEY='70b558a8-8ad0-4d2b-8e9f-559cc06fdcd3'".format(cryptoTo, cryptoFrom)
@@ -111,7 +110,6 @@ def index():
             errorDB = "ERROR EN BASE DE DATOS, INTENTE EN UNOS MINUTOS"
             return render_template("index.html", menu='index', errorDB=errorDB, registros=registros)
 
-
 @app.route("/purchase", methods=['GET', 'POST'])
 def purchase():
 
@@ -125,7 +123,6 @@ def purchase():
     if request.method == 'GET':
 
         return render_template("purchase.html", menu='purchase', form=form, data=[quant,pu])
-
 
     if request.values.get("submitCalcular"):
         if not form.validate():
@@ -200,7 +197,6 @@ def purchase():
             pu = 0
             cryptoIncompatible = "OPERACIÓN INCORRECTA - NO PUEDE COMPRAR EUROS CON {}".format(slctFrom)
             return render_template("purchase.html", menu='purchase', form=form , cryptoIncompatible=cryptoIncompatible, data=[quant,pu])
-
 
         #Calculo de saldo de la moneda con la que se quiere comprar
         if slctFrom == 'EUR':
@@ -285,12 +281,10 @@ def purchase():
             alert = "NO EXISTE SALDO DE COMPRA EN LA CRYPTOMONEDA {}".format(slctFrom)
             return render_template("purchase.html", menu='purchase', form=form, data=[quant, pu, slctFrom], alert=alert)
 
-
 @app.route("/status")
 def inverter():
 
     # Calculo Inversion
-    
     try:
         movOrNot = dataQuery("SELECT date, time, from_currency, from_quantity, to_currency, to_quantity FROM MOVEMENTS;")
     except sqlite3.Error:
@@ -362,7 +356,6 @@ def inverter():
             xi += 1
 
     # Calculo Beneficio/Perdida
-
     dif = valorAct - totalInver
 
     return render_template("status.html", menu='status', totalInver=totalInver, cryptoBalance=cryptoSaldo(), valorAct=valorAct, dif=dif)

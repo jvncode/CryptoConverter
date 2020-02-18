@@ -1,6 +1,17 @@
+html,body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    color:rgb(0, 0, 0);
+    font-family:'Opens Sans',helvetica;
+    height:100%;
+    width:101%;
+    margin: 0px;
+    padding: 0px;
+    border-bottom: #981ce0 2px solid;
+    border-top: #981ce0 2px solid;
+  }
 
-
-  header {
+header {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: rgb(#981ce0);
     font-weight: bold;
@@ -8,7 +19,7 @@
     padding: 10px;
 }
 
-  footer {
+footer {
     position:fixed;
     left:0px;
     bottom:0px;
