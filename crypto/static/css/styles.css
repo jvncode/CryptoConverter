@@ -264,6 +264,17 @@ footer {
     bottom:380px;
 }
 
+.error_db_index {
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em; color: rgb(231, 26, 26);
+    padding: 0px;
+    position: relative;
+    left: 360px;
+    bottom:-180px;
+}
+
 .error_db_status, .error_api_status {
 
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -271,7 +282,7 @@ footer {
     font-size: 1.2em; color: rgb(231, 26, 26);
     padding: 0px;
     position: relative;
-    left: 470px;
+    left: 450px;
     bottom:0px;
 }
 
