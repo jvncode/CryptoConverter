@@ -13,6 +13,11 @@ https:// (Solicitar dirección web en:  jvncode@gmail.com)
 
 ## Requisitos de instalación 🔧
 
+* **Activar entorno virtual**
+```
+source <nombre_entorno_virtual>/bin/activate
+```
+
 * **Instalar "requirements":**
 ```
 pip install -r requirements.txt
