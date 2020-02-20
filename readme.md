@@ -8,7 +8,7 @@ Simulador de conversión e inversión en Criptomonedas
 
 ## Dirección web de la Aplicación 📌
 ```
-https:// (aún por determinar)
+https:// (Solicitar dirección web en:  jvncode@gmail.com)
 ```
 
 ## Requisitos de instalación 🔧
@@ -17,6 +17,11 @@ https:// (aún por determinar)
 ```
 pip install -r requirements.txt
 ```
+
+* **Crear variable de entorno**
+
+Crear variable de entorno **FLASK_APP** con el valor **run.py**
+
 * **Vincular API**
 
 Visitar la web de CoinMarketCap para conseguir una APIKEY:
@@ -26,6 +31,11 @@ https://pro.coinmarketcap.com/login/
 Introducir su APIKEY en el archivo **config_show.py**
 
 Renombrar **config_show.py** por **config.py**
+
+* **Lanzar aplicación**
+```
+flask run
+```
 
 ## Construido con 🛠️
 
