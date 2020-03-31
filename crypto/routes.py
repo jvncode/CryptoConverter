@@ -15,7 +15,7 @@ cryptos = ("BTC", "ETH", "XRP", "LTC", "BCH", "BNB", "USDT", "EOS", "BSV", "XLM"
 
 def api(cryptoFrom, cryptoTo):
 
-    url= "https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount=1&symbol={}&convert={}&CMC_PRO_API_KEY='70b558a8-8ad0-4d2b-8e9f-559cc06fdcd3'".format(cryptoTo, cryptoFrom)
+    url= "https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount=1&symbol={}&convert={}&CMC_PRO_API_KEY=<API_KEY>".format(cryptoTo, cryptoFrom)
 
     headers = {
         'Accepts': 'application/json',
